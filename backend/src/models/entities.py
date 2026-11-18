@@ -37,6 +37,15 @@ class Drill(Base):
     snapshot: Mapped[dict] = mapped_column(JSON)
     result: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=now)
+class TxDrill(Base):
+    __tablename__ = 'tx_drills'
+    id: Mapped[int] = mapped_column(primary_key=True)
+    scenario_id: Mapped[int] = mapped_column(ForeignKey('scenarios.id'))
+    label: Mapped[str] = mapped_column(String(120))
+    status: Mapped[str] = mapped_column(String(20), default='queued')
+    snapshot: Mapped[dict] = mapped_column(JSON)
+    result: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=now)
 class Audit(Base):
     __tablename__ = 'audits'
     id: Mapped[int] = mapped_column(primary_key=True)
